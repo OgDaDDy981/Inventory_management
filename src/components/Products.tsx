@@ -6,7 +6,7 @@ import { useInventoryStore, Product } from '@/lib/store';
 import { Plus, Search, Edit2, Trash2, Eye, Filter, X, ChevronDown, Package } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const CATEGORIES = ['Electronics', 'Health', 'Food & Beverage', 'Furniture', 'Clothing', 'Sports', 'Books', 'Other'];
+const CATEGORIES = ['Electronics', 'Health', 'Clothing', 'Sports', 'Automotive', 'Books', 'Other'];
 
 interface ProductFormProps {
   product?: Product;
@@ -346,7 +346,7 @@ export default function Products() {
                       </div>
                     </td>
                     <td><span style={{ fontFamily: 'monospace', fontSize: 12, color: '#64748b' }}>{p.sku}</span></td>
-                    <td><span className={`badge ${p.category === 'Electronics' ? 'badge-blue' : p.category === 'Health' ? 'badge-green' : p.category === 'Food & Beverage' ? 'badge-yellow' : 'badge-purple'}`}>{p.category}</span></td>
+                    <td><span className={`badge ${p.category === 'Electronics' ? 'badge-blue' : p.category === 'Health' ? 'badge-green' : p.category === 'Sports' ? 'badge-yellow' : p.category === 'Clothing' ? 'badge-purple' : 'badge-cyan'}`}>{p.category}</span></td>
                     <td style={{ color: '#94a3b8' }}>{p.supplier || '—'}</td>
                     <td style={{ fontWeight: 600 }}>₹{p.purchasePrice.toLocaleString('en-IN')}</td>
                     <td style={{ fontWeight: 600, color: '#10b981' }}>₹{p.sellingPrice.toLocaleString('en-IN')}</td>
