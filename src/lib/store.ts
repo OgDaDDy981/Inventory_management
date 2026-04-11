@@ -95,26 +95,26 @@ interface InventoryStore {
   sales: Sale[];
   purchases: Purchase[];
   notifications: Notification[];
-  
+
   // Product actions
   addProduct: (product: Omit<Product, 'id' | 'createdAt' | 'updatedAt'>) => void;
   updateProduct: (id: string, product: Partial<Product>) => void;
   deleteProduct: (id: string) => void;
-  
+
   // Supplier actions
   addSupplier: (supplier: Omit<Supplier, 'id' | 'createdAt'>) => void;
   updateSupplier: (id: string, supplier: Partial<Supplier>) => void;
   deleteSupplier: (id: string) => void;
-  
+
   // Stock movement actions
   addStockMovement: (movement: Omit<StockMovement, 'id'>) => void;
-  
+
   // Sale actions
   addSale: (sale: Omit<Sale, 'id'>) => void;
-  
+
   // Purchase actions
   addPurchase: (purchase: Omit<Purchase, 'id'>) => void;
-  
+
   // Notification actions
   addNotification: (notification: Omit<Notification, 'id'>) => void;
   markNotificationRead: (id: string) => void;
@@ -123,223 +123,76 @@ interface InventoryStore {
 }
 
 // --- Sample product IDs (stable for cross-references) ---
-const pid1 = uuidv4(); // Laptop Pro 15"
-const pid2 = uuidv4(); // Wireless Mouse
-const pid3 = uuidv4(); // Vitamin C Tablets
-const pid4 = uuidv4(); // USB-C Hub 7-in-1
-const pid5 = uuidv4(); // Protein Shake Vanilla
-const pid6 = uuidv4(); // Mechanical Keyboard
-const pid7 = uuidv4(); // Running Shoes Pro
-const pid8 = uuidv4(); // Compression Tights
-const pid9 = uuidv4(); // Men's Formal Shirt
-const pid10 = uuidv4(); // Yoga Mat Premium
-const pid11 = uuidv4(); // First Aid Kit
-const pid12 = uuidv4(); // Noise-Cancelling Headphones
+const pid1 = uuidv4(); // Gaming Laptop G15
+const pid2 = uuidv4(); // Premium Cotton Hoodie
 
-const sid1 = uuidv4(); // TechWorld Inc
-const sid2 = uuidv4(); // PharmaCo
-const sid3 = uuidv4(); // FitLife Co
-const sid4 = uuidv4(); // UrbanWear Co
-const sid5 = uuidv4(); // SportGear Ltd
+const sid1 = uuidv4(); // ElectroHub Distribution
+const sid2 = uuidv4(); // Global Fashion Sourcing
 
 const sampleProducts: Product[] = [
   {
-    id: pid1, name: 'Laptop Pro 15"', sku: 'LAP-001', category: 'Electronics',
-    supplier: 'TechWorld Inc', purchasePrice: 45000, sellingPrice: 65000,
-    quantity: 24, minStockThreshold: 5, expiryDate: '',
-    manufacturingDate: '2024-01-15', barcode: '8901234567890',
-    batchNumber: 'BAT-2024-001', storageLocation: 'A-01', imageUrl: '',
+    id: pid1, name: 'Gaming Laptop G15', sku: 'ELE-LP-001', category: 'Electronics',
+    supplier: 'ElectroHub Distribution', purchasePrice: 75000, sellingPrice: 95000,
+    quantity: 12, minStockThreshold: 3, expiryDate: '',
+    manufacturingDate: '2024-02-10', barcode: '8901001001001',
+    batchNumber: 'BAT-ELE-001', storageLocation: 'SEC-A1', imageUrl: '',
     createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
   },
   {
-    id: pid2, name: 'Wireless Mouse', sku: 'MOU-002', category: 'Electronics',
-    supplier: 'TechWorld Inc', purchasePrice: 500, sellingPrice: 1200,
-    quantity: 3, minStockThreshold: 10, expiryDate: '',
-    manufacturingDate: '2024-03-01', barcode: '8901234567891',
-    batchNumber: 'BAT-2024-002', storageLocation: 'A-02', imageUrl: '',
+    id: pid2, name: 'Premium Cotton Hoodie', sku: 'FAS-HD-001', category: 'Fashion',
+    supplier: 'Global Fashion Sourcing', purchasePrice: 1200, sellingPrice: 2800,
+    quantity: 65, minStockThreshold: 15, expiryDate: '',
+    manufacturingDate: '2024-04-01', barcode: '8902002002001',
+    batchNumber: 'BAT-FAS-001', storageLocation: 'SEC-F1', imageUrl: '',
     createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid3, name: 'Vitamin C Tablets', sku: 'VIT-003', category: 'Health',
-    supplier: 'PharmaCo', purchasePrice: 120, sellingPrice: 280,
-    quantity: 150, minStockThreshold: 20, expiryDate: '2026-03-20',
-    manufacturingDate: '2024-03-01', barcode: '8901234567892',
-    batchNumber: 'BAT-2024-003', storageLocation: 'B-01', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid4, name: 'USB-C Hub 7-in-1', sku: 'ACC-006', category: 'Electronics',
-    supplier: 'TechWorld Inc', purchasePrice: 1200, sellingPrice: 2500,
-    quantity: 45, minStockThreshold: 10, expiryDate: '',
-    manufacturingDate: '2024-01-20', barcode: '8901234567895',
-    batchNumber: 'BAT-2024-006', storageLocation: 'A-03', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid5, name: 'Protein Shake Vanilla', sku: 'PRO-007', category: 'Health',
-    supplier: 'FitLife Co', purchasePrice: 800, sellingPrice: 1600,
-    quantity: 2, minStockThreshold: 15, expiryDate: '2025-12-31',
-    manufacturingDate: '2024-01-05', barcode: '8901234567896',
-    batchNumber: 'BAT-2024-007', storageLocation: 'B-02', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid6, name: 'Mechanical Keyboard', sku: 'KEY-008', category: 'Electronics',
-    supplier: 'TechWorld Inc', purchasePrice: 3500, sellingPrice: 6500,
-    quantity: 18, minStockThreshold: 5, expiryDate: '',
-    manufacturingDate: '2024-02-15', barcode: '8901234567897',
-    batchNumber: 'BAT-2024-008', storageLocation: 'A-04', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid7, name: 'Running Shoes Pro', sku: 'SPT-009', category: 'Sports',
-    supplier: 'SportGear Ltd', purchasePrice: 3200, sellingPrice: 5800,
-    quantity: 36, minStockThreshold: 8, expiryDate: '',
-    manufacturingDate: '2024-02-01', barcode: '8901234567898',
-    batchNumber: 'BAT-2024-009', storageLocation: 'C-01', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid8, name: 'Compression Tights', sku: 'SPT-010', category: 'Sports',
-    supplier: 'SportGear Ltd', purchasePrice: 900, sellingPrice: 2200,
-    quantity: 60, minStockThreshold: 12, expiryDate: '',
-    manufacturingDate: '2024-03-10', barcode: '8901234567899',
-    batchNumber: 'BAT-2024-010', storageLocation: 'C-02', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid9, name: "Men's Formal Shirt", sku: 'CLO-011', category: 'Clothing',
-    supplier: 'UrbanWear Co', purchasePrice: 650, sellingPrice: 1500,
-    quantity: 42, minStockThreshold: 10, expiryDate: '',
-    manufacturingDate: '2024-01-25', barcode: '8901234567900',
-    batchNumber: 'BAT-2024-011', storageLocation: 'D-01', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid10, name: 'Yoga Mat Premium', sku: 'SPT-012', category: 'Sports',
-    supplier: 'SportGear Ltd', purchasePrice: 700, sellingPrice: 1800,
-    quantity: 4, minStockThreshold: 10, expiryDate: '',
-    manufacturingDate: '2024-02-20', barcode: '8901234567901',
-    batchNumber: 'BAT-2024-012', storageLocation: 'C-03', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid11, name: 'First Aid Kit', sku: 'HLT-013', category: 'Health',
-    supplier: 'PharmaCo', purchasePrice: 350, sellingPrice: 850,
-    quantity: 28, minStockThreshold: 8, expiryDate: '2027-06-15',
-    manufacturingDate: '2024-06-01', barcode: '8901234567902',
-    batchNumber: 'BAT-2024-013', storageLocation: 'B-03', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
-  {
-    id: pid12, name: 'Noise-Cancelling Headphones', sku: 'AUD-014', category: 'Electronics',
-    supplier: 'TechWorld Inc', purchasePrice: 6000, sellingPrice: 12000,
-    quantity: 14, minStockThreshold: 4, expiryDate: '',
-    manufacturingDate: '2024-03-15', barcode: '8901234567903',
-    batchNumber: 'BAT-2024-014', storageLocation: 'A-05', imageUrl: '',
-    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
-  },
+  }
 ];
 
 const sampleSuppliers: Supplier[] = [
   {
-    id: sid1, name: 'TechWorld Inc', email: 'contact@techworld.com',
-    phone: '+91 9876543210', address: '123, Tech Park, Bangalore', contactPerson: 'Raj Sharma',
-    products: ['LAP-001', 'MOU-002', 'ACC-006', 'KEY-008', 'AUD-014'], createdAt: new Date().toISOString()
+    id: sid1, name: 'ElectroHub Distribution', email: 'sales@electrohub.com',
+    phone: '+91 9001001001', address: 'Tech Plaza, Electronics City, Bangalore', contactPerson: 'Arun Kumar',
+    products: ['ELE-LP-001'], createdAt: new Date().toISOString()
   },
   {
-    id: sid2, name: 'PharmaCo', email: 'sales@pharmaco.com',
-    phone: '+91 9876543211', address: '456, Pharma Hub, Mumbai', contactPerson: 'Priya Mehta',
-    products: ['VIT-003', 'HLT-013'], createdAt: new Date().toISOString()
-  },
-  {
-    id: sid3, name: 'FitLife Co', email: 'business@fitlife.com',
-    phone: '+91 9876543214', address: '654, Health Lane, Delhi', contactPerson: 'Vikram Singh',
-    products: ['PRO-007'], createdAt: new Date().toISOString()
-  },
-  {
-    id: sid4, name: 'UrbanWear Co', email: 'orders@urbanwear.com',
-    phone: '+91 9876543215', address: '88, Fashion Street, Mumbai', contactPerson: 'Aarti Desai',
-    products: ['CLO-011'], createdAt: new Date().toISOString()
-  },
-  {
-    id: sid5, name: 'SportGear Ltd', email: 'info@sportgear.com',
-    phone: '+91 9876543216', address: '42, Stadium Road, Pune', contactPerson: 'Rohan Joshi',
-    products: ['SPT-009', 'SPT-010', 'SPT-012'], createdAt: new Date().toISOString()
+    id: sid2, name: 'Global Fashion Sourcing', email: 'orders@globalfashion.com',
+    phone: '+91 9002002002', address: 'Fashion Boulevard, Bandra West, Mumbai', contactPerson: 'Sarah Khan',
+    products: ['FAS-HD-001'], createdAt: new Date().toISOString()
   },
 ];
 
 const sampleSales: Sale[] = [
   {
-    id: uuidv4(), customerName: 'Ananya Roy',
-    items: [{ productId: pid1, productName: 'Laptop Pro 15"', quantity: 1, price: 65000, discount: 2000 }],
-    tax: 8, discount: 2000, totalAmount: 68220, profit: 18000, date: new Date(Date.now() - 86400000).toISOString(), status: 'completed'
+    id: uuidv4(), customerName: 'Rohan Sharma',
+    items: [{ productId: pid1, productName: 'Gaming Laptop G15', quantity: 1, price: 95000, discount: 5000 }],
+    tax: 18, discount: 5000, totalAmount: 106200, profit: 20000, date: new Date(Date.now() - 86400000).toISOString(), status: 'completed'
   },
   {
-    id: uuidv4(), customerName: 'Rahul Gupta',
-    items: [{ productId: pid4, productName: 'USB-C Hub 7-in-1', quantity: 3, price: 2500, discount: 0 }],
-    tax: 18, discount: 0, totalAmount: 8850, profit: 3900, date: new Date(Date.now() - 172800000).toISOString(), status: 'completed'
-  },
-  {
-    id: uuidv4(), customerName: 'Meera Iyer',
-    items: [{ productId: pid7, productName: 'Running Shoes Pro', quantity: 2, price: 5800, discount: 500 }],
-    tax: 12, discount: 500, totalAmount: 12432, profit: 5200, date: new Date(Date.now() - 259200000).toISOString(), status: 'completed'
-  },
-  {
-    id: uuidv4(), customerName: 'Karan Bhatia',
-    items: [
-      { productId: pid9, productName: "Men's Formal Shirt", quantity: 3, price: 1500, discount: 0 },
-      { productId: pid8, productName: 'Compression Tights', quantity: 2, price: 2200, discount: 200 },
-    ],
-    tax: 12, discount: 200, totalAmount: 9352, profit: 5150, date: new Date(Date.now() - 345600000).toISOString(), status: 'completed'
-  },
-  {
-    id: uuidv4(), customerName: 'Sneha Patel',
-    items: [{ productId: pid12, productName: 'Noise-Cancelling Headphones', quantity: 1, price: 12000, discount: 1000 }],
-    tax: 18, discount: 1000, totalAmount: 12980, profit: 6000, date: new Date(Date.now() - 432000000).toISOString(), status: 'completed'
-  },
+    id: uuidv4(), customerName: 'Ishita Verma',
+    items: [{ productId: pid2, productName: 'Premium Cotton Hoodie', quantity: 2, price: 2800, discount: 200 }],
+    tax: 12, discount: 200, totalAmount: 6048, profit: 3000, date: new Date(Date.now() - 172800000).toISOString(), status: 'completed'
+  }
 ];
 
 const sampleMovements: StockMovement[] = [
-  { id: uuidv4(), productId: pid1, productName: 'Laptop Pro 15"', type: 'stock_in', quantity: 10, note: 'New stock received from TechWorld', date: new Date(Date.now() - 86400000 * 5).toISOString() },
-  { id: uuidv4(), productId: pid2, productName: 'Wireless Mouse', type: 'stock_out', quantity: 5, note: 'Bulk order #1234', date: new Date(Date.now() - 86400000 * 4).toISOString() },
-  { id: uuidv4(), productId: pid3, productName: 'Vitamin C Tablets', type: 'return', quantity: 2, note: 'Customer return — wrong item', date: new Date(Date.now() - 86400000 * 3).toISOString() },
-  { id: uuidv4(), productId: pid5, productName: 'Protein Shake Vanilla', type: 'damaged', quantity: 3, note: 'Damaged during storage', date: new Date(Date.now() - 86400000 * 2).toISOString() },
-  { id: uuidv4(), productId: pid7, productName: 'Running Shoes Pro', type: 'stock_in', quantity: 20, note: 'Seasonal restock', date: new Date(Date.now() - 86400000).toISOString() },
-  { id: uuidv4(), productId: pid9, productName: "Men's Formal Shirt", type: 'stock_in', quantity: 15, note: 'New collection arrival', date: new Date().toISOString() },
+  { id: uuidv4(), productId: pid1, productName: 'Gaming Laptop G15', type: 'stock_in', quantity: 10, note: 'Initial inventory restock', date: new Date(Date.now() - 86400000 * 5).toISOString() },
+  { id: uuidv4(), productId: pid2, productName: 'Premium Cotton Hoodie', type: 'stock_in', quantity: 70, note: 'Seasonal stock arrival', date: new Date(Date.now() - 86400000 * 4).toISOString() },
 ];
 
 const samplePurchases: Purchase[] = [
   {
-    id: uuidv4(), supplierId: sid1, supplierName: 'TechWorld Inc',
+    id: uuidv4(), supplierId: sid1, supplierName: 'ElectroHub Distribution',
     items: [
-      { productId: pid1, productName: 'Laptop Pro 15"', quantity: 10, price: 45000 },
-      { productId: pid6, productName: 'Mechanical Keyboard', quantity: 20, price: 3500 },
+      { productId: pid1, productName: 'Gaming Laptop G15', quantity: 5, price: 75000 }
     ],
-    totalAmount: 520000, date: new Date(Date.now() - 86400000 * 7).toISOString(), status: 'received'
+    totalAmount: 375000, date: new Date(Date.now() - 86400000 * 7).toISOString(), status: 'received'
   },
   {
-    id: uuidv4(), supplierId: sid5, supplierName: 'SportGear Ltd',
+    id: uuidv4(), supplierId: sid2, supplierName: 'Global Fashion Sourcing',
     items: [
-      { productId: pid7, productName: 'Running Shoes Pro', quantity: 20, price: 3200 },
-      { productId: pid8, productName: 'Compression Tights', quantity: 30, price: 900 },
+      { productId: pid2, productName: 'Premium Cotton Hoodie', quantity: 50, price: 1200 },
     ],
-    totalAmount: 91000, date: new Date(Date.now() - 86400000 * 5).toISOString(), status: 'received'
-  },
-  {
-    id: uuidv4(), supplierId: sid4, supplierName: 'UrbanWear Co',
-    items: [
-      { productId: pid9, productName: "Men's Formal Shirt", quantity: 15, price: 650 },
-    ],
-    totalAmount: 9750, date: new Date(Date.now() - 86400000 * 3).toISOString(), status: 'received'
-  },
-  {
-    id: uuidv4(), supplierId: sid2, supplierName: 'PharmaCo',
-    items: [
-      { productId: pid3, productName: 'Vitamin C Tablets', quantity: 100, price: 120 },
-      { productId: pid11, productName: 'First Aid Kit', quantity: 15, price: 350 },
-    ],
-    totalAmount: 17250, date: new Date(Date.now() - 86400000 * 2).toISOString(), status: 'pending'
+    totalAmount: 60000, date: new Date(Date.now() - 86400000 * 5).toISOString(), status: 'pending'
   },
 ];
 
@@ -350,12 +203,8 @@ export const useInventoryStore = create<InventoryStore>((set, get) => ({
   sales: sampleSales,
   purchases: samplePurchases,
   notifications: [
-    { id: uuidv4(), type: 'low_stock', title: 'Low Stock Alert', message: 'Wireless Mouse is running low (3 left)', date: new Date().toISOString(), read: false },
-    { id: uuidv4(), type: 'low_stock', title: 'Low Stock Alert', message: 'Protein Shake Vanilla is critically low (2 left)', date: new Date().toISOString(), read: false },
-    { id: uuidv4(), type: 'low_stock', title: 'Low Stock Alert', message: 'Yoga Mat Premium is running low (4 left)', date: new Date().toISOString(), read: false },
-    { id: uuidv4(), type: 'expiring', title: 'Expiry Warning', message: 'Vitamin C Tablets expiring on 2026-03-20', date: new Date().toISOString(), read: false },
-    { id: uuidv4(), type: 'large_sale', title: 'Large Sale', message: 'Sale of ₹68,220 completed for Ananya Roy', date: new Date().toISOString(), read: false },
-    { id: uuidv4(), type: 'info', title: 'Purchase Order', message: 'New purchase of ₹17,250 from PharmaCo is pending', date: new Date().toISOString(), read: false },
+    { id: uuidv4(), type: 'info', title: 'Pending Order', message: 'Purchase from Global Fashion Sourcing is pending', date: new Date().toISOString(), read: false },
+    { id: uuidv4(), type: 'large_sale', title: 'High Value Sale', message: 'Sale of ₹1,06,200 completed for Rohan Sharma', date: new Date().toISOString(), read: false }
   ],
 
   addProduct: (product) => set((state) => {

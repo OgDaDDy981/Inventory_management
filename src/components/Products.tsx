@@ -6,7 +6,7 @@ import { useInventoryStore, Product } from '@/lib/store';
 import { Plus, Search, Edit2, Trash2, Eye, Filter, X, ChevronDown, Package } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const CATEGORIES = ['Electronics', 'Health', 'Clothing', 'Sports', 'Automotive', 'Books', 'Other'];
+const CATEGORIES = ['Electronics', 'Fashion'];
 
 interface ProductFormProps {
   product?: Product;
@@ -288,7 +288,7 @@ export default function Products() {
           <input className="input-field" style={{ paddingLeft: 36 }} placeholder="Search products, SKU, supplier..." value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-          {['All', ...CATEGORIES.slice(0, 5)].map(cat => (
+          {['All', ...CATEGORIES].map(cat => (
             <button
               key={cat}
               onClick={() => setCategoryFilter(cat)}
@@ -346,7 +346,7 @@ export default function Products() {
                       </div>
                     </td>
                     <td><span style={{ fontFamily: 'monospace', fontSize: 12, color: '#64748b' }}>{p.sku}</span></td>
-                    <td><span className={`badge ${p.category === 'Electronics' ? 'badge-blue' : p.category === 'Health' ? 'badge-green' : p.category === 'Sports' ? 'badge-yellow' : p.category === 'Clothing' ? 'badge-purple' : 'badge-cyan'}`}>{p.category}</span></td>
+                    <td><span className={`badge ${p.category === 'Electronics' ? 'badge-blue' : 'badge-purple'}`}>{p.category}</span></td>
                     <td style={{ color: '#94a3b8' }}>{p.supplier || '—'}</td>
                     <td style={{ fontWeight: 600 }}>₹{p.purchasePrice.toLocaleString('en-IN')}</td>
                     <td style={{ fontWeight: 600, color: '#10b981' }}>₹{p.sellingPrice.toLocaleString('en-IN')}</td>
@@ -361,8 +361,8 @@ export default function Products() {
                     <td>
                       {daysToExpiry === null ? <span style={{ color: '#475569' }}>N/A</span> :
                         daysToExpiry < 0 ? <span className="badge badge-red">Expired</span> :
-                        daysToExpiry <= 30 ? <span className="badge badge-yellow">{daysToExpiry}d</span> :
-                        <span style={{ color: '#10b981', fontSize: 13 }}>{p.expiryDate}</span>
+                          daysToExpiry <= 30 ? <span className="badge badge-yellow">{daysToExpiry}d</span> :
+                            <span style={{ color: '#10b981', fontSize: 13 }}>{p.expiryDate}</span>
                       }
                     </td>
                     <td>
